@@ -97,7 +97,7 @@ class Level(object):
     def __init__(self, player):
         # Создаем группу спрайтов куда поместятся различные плтаформы
         self.platform_list = pygame.sprite.Group()
-        # Ссылка на основного игрока
+        # Ссылка на основного игрока и сундук
         self.player = player
 
     # Функция для обновления
@@ -126,3 +126,17 @@ class Level_01(Level):
             block.rect.y = platform[3]
             block.player = self.player
             self.platform_list.add(block)
+
+class Chest(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.image.load("images/sunduck.png")
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def update(self):
+        # Проверить, соприкоснулся ли сундук с игроком
+        if pygame.sprite.collide_rect(self, main.player):
+            # Вывести сообщение "YOU WIN"
+            print("YOU WIN")
